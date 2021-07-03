@@ -97,12 +97,12 @@ exports.signIn = async (req, res) => {
       password: joi.string().min(8).required(),
     });
 
-    const { error } = validateData.validate(req.body);
+    const { errors } = validateData.validate(req.body);
 
-    if (error) {
+    if (errors) {
       return res.send({
         status: "false",
-        msg: error.details[0].message,
+        msg: errors.details[0].message,
       });
     }
 
