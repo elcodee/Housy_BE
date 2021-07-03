@@ -16,7 +16,12 @@ const {
   deleteUser,
 } = require("../app/controllers/user");
 
-const { addTransaction } = require("../app/controllers/transaction");
+const {
+  addTransaction,
+  updateTransaction,
+  getTransactions,
+  getTransaction,
+} = require("../app/controllers/transaction");
 
 // USERS & AUTH
 route.post("/signup", signUp);
@@ -34,5 +39,8 @@ route.delete("/house/:id", auth, deleteHouse);
 
 // TRANSACTIONS
 route.post("/transaction", auth, addTransaction);
+route.patch("/order/:id", auth, updateTransaction);
+route.get("/orders", getTransactions);
+route.get("/order/:id", getTransaction);
 
 module.exports = route;
