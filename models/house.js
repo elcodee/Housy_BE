@@ -15,6 +15,13 @@ module.exports = (sequelize, DataTypes) => {
           name: "city_id",
         },
       });
+
+      House.hasOne(models.Transaction, {
+        as: "trx_id",
+        foreignKey: {
+          name: "house_id",
+        },
+      });
     }
   }
   House.init(

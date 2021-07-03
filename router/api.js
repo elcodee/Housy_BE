@@ -1,14 +1,22 @@
 const { Router } = require("express");
 const route = Router();
-const { auth } = require("../middleware/auth");
-const { addHouse, getHouses, getHouse } = require("../controllers/house");
+const { auth } = require("../app/middleware/auth");
+const {
+  addHouse,
+  getHouses,
+  getHouse,
+  updateHouse,
+  deleteHouse,
+} = require("../app/controllers/house");
 const {
   signUp,
   signIn,
   getUsers,
   getUser,
   deleteUser,
-} = require("../controllers/user");
+} = require("../app/controllers/user");
+
+const { addTransaction } = require("../app/controllers/transaction");
 
 // USERS & AUTH
 route.post("/signup", signUp);
@@ -21,7 +29,10 @@ route.delete("/user/:id", deleteUser);
 route.get("/houses", getHouses);
 route.get("/house/:id", getHouse);
 route.post("/house", auth, addHouse);
-// UPDATE //
-// DELETE //
+route.patch("/house/:id", auth, updateHouse);
+route.delete("/house/:id", auth, deleteHouse);
+
+// TRANSACTIONS
+route.post("/transaction", auth, addTransaction);
 
 module.exports = route;

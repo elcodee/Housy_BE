@@ -1,4 +1,4 @@
-const { House, Location } = require("../models");
+const { House, Location } = require("../../models");
 
 // CREATE HOUSE
 exports.addHouse = async (req, res) => {
@@ -23,7 +23,7 @@ exports.addHouse = async (req, res) => {
       },
     });
 
-    res.send({
+    res.status(200).send({
       status: "true",
       msg: "Success STORE New House",
       data: {
@@ -135,6 +135,84 @@ exports.getHouse = async (req, res) => {
   } catch (error) {
     res.status(500).send({
       status: "false",
+    });
+  }
+};
+
+// UPDATE HOUSE
+exports.updateHouse = async (req, res) => {
+  try {
+    let newHouse = req.body;
+
+    newHouse = {
+      ...newHouse,
+      city_id: req.body.cityId,
+    };
+
+    console.log("DATA: ", newHouse);
+
+    await House.update(newHouse, {
+      where: {
+        id: req.params.id,
+      },
+    });
+
+    const updatedHouse = await House.findOne({
+      where: {
+        id: req.params.id,
+      },
+      include: {
+        model: Location,
+        as: "city",
+        attributes: {
+          exclude: ["createdAt", "updatedAt"],
+        },
+      },
+      attributes: {
+        exclude: ["city_id", "createdAt", "updatedAt"],
+      },
+    });
+
+    res.status(200).send({
+      status: "true",
+      msg: `House Data ID ${req.params.id} Updated`,
+      data: { updatedHouse },
+    });
+  } catch (error) {
+    console.log("ERROR: ", error);
+
+    res.status(500).send({
+      status: "false",
+      msg: "Internal Server Error UPDATE",
+    });
+  }
+};
+
+// DELETE HOUSE
+exports.deleteHouse = async (req, res) => {
+  try {
+    const deleteHouse = await House.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+
+    if (!deleteHouse) {
+      return res.status(404).send({
+        status: "false",
+        msg: "House ID Doesn't Exist",
+      });
+    }
+
+    res.status(200).send({
+      status: "true",
+      msg: `Success DELETE House ID ${req.params.id}`,
+      data: { id: req.params.id },
+    });
+  } catch (error) {
+    res.status(500).send({
+      status: "false",
+      msg: "internal server error",
     });
   }
 };

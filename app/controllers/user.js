@@ -1,4 +1,4 @@
-const { User, Role } = require("../models");
+const { User, Role } = require("../../models");
 const joi = require("joi");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -18,10 +18,10 @@ exports.signUp = async (req, res) => {
       address: joi.string().min(10).required(),
     });
 
-    const { error } = validateData.validate(req.body);
+    const { errors } = validateData.validate(req.body);
 
     if (errors) {
-      return res.send({
+      return res.status(200).send({
         status: "false",
         msg: errors.details[0].message,
       });
@@ -34,7 +34,7 @@ exports.signUp = async (req, res) => {
     });
 
     if (checkUsername) {
-      return res.send({
+      return res.status(200).send({
         status: "false",
         msg: "Username Already Registered",
       });
@@ -47,13 +47,14 @@ exports.signUp = async (req, res) => {
     });
 
     if (checkEmail) {
-      return res.send({
+      return res.status(200).send({
         status: "false",
         msg: "Email Already Registered",
       });
     }
 
     const passwordHash = await bcrypt.hash(password, 10);
+
     const dataUser = await User.create({
       ...req.body,
       role_id: req.body.listAsId,
@@ -69,7 +70,7 @@ exports.signUp = async (req, res) => {
       secretKey
     );
 
-    res.send({
+    res.status(200).send({
       status: "true",
       msg: "Register Success",
       data: {
@@ -78,9 +79,7 @@ exports.signUp = async (req, res) => {
       },
     });
   } catch (error) {
-    console.log("ERROR: ", error);
-
-    res.send({
+    res.status(500).send({
       status: "false",
       msg: "Error Authentication",
     });
@@ -100,7 +99,7 @@ exports.signIn = async (req, res) => {
     const { errors } = validateData.validate(req.body);
 
     if (errors) {
-      return res.send({
+      return res.status(200).send({
         status: "false",
         msg: errors.details[0].message,
       });
@@ -112,12 +111,10 @@ exports.signIn = async (req, res) => {
       },
     });
 
-    // console.log("CEK USRNAME: ", checkUsername);
-
     if (!checkUsername) {
-      return res.send({
+      return res.status(200).send({
         status: "false",
-        msg: "Username Or Password Incorrect | Email",
+        msg: "Username Or Password Incorrect | Username",
       });
     }
 
@@ -127,9 +124,9 @@ exports.signIn = async (req, res) => {
     );
 
     if (!checkPassword) {
-      return res.send({
+      return res.status(200).send({
         status: "false",
-        msg: "Username Or Password Incorrect | Pass",
+        msg: "Username Or Password Incorrect | Password",
       });
     }
 
@@ -142,7 +139,7 @@ exports.signIn = async (req, res) => {
       secretKey
     );
 
-    res.send({
+    res.status(200).send({
       status: "true",
       msg: "Sign In Success",
       data: {
@@ -153,7 +150,7 @@ exports.signIn = async (req, res) => {
   } catch (error) {
     console.log("ERROR: ", error);
 
-    res.send({
+    res.status(500).send({
       status: "false",
       msg: "Error Authentication",
     });
@@ -176,20 +173,20 @@ exports.getUsers = async (req, res) => {
       },
     });
 
-    res.send({
+    res.status(200).send({
       status: "true",
       msg: "Success GET All Users",
       data: UserList,
     });
   } catch (error) {
-    res.send({
+    res.status(500).send({
       status: "false",
       msg: "Failed GET All Users",
     });
   }
 };
 
-// GET USER FROM PARAMS(ID)
+// GET USER FROM PARAMS (ID)
 exports.getUser = async (req, res) => {
   try {
     const UserData = await User.findOne({
@@ -208,7 +205,7 @@ exports.getUser = async (req, res) => {
       },
     });
 
-    res.send({
+    res.status(200).send({
       status: "true",
       msg: `Success GET User ID : ${UserData.id}`,
       data: {
@@ -225,7 +222,7 @@ exports.getUser = async (req, res) => {
       },
     });
   } catch (error) {
-    res.send({
+    res.status(500).send({
       status: "false",
       msg: "Failed GET Users",
     });
@@ -233,7 +230,6 @@ exports.getUser = async (req, res) => {
 };
 
 // DELETE USER
-
 exports.deleteUser = async (req, res) => {
   try {
     const deleteUser = await User.destroy({
@@ -243,19 +239,19 @@ exports.deleteUser = async (req, res) => {
     });
 
     if (!deleteUser) {
-      return res.send({
+      return res.status(200).send({
         status: "false",
         msg: "User ID Doesn't Exist",
       });
     }
 
-    res.send({
+    res.status(200).send({
       status: "true",
       msg: "Success DELETE User",
-      data: deleteUser.id,
+      data: { id: req.params.id },
     });
   } catch (error) {
-    res.send({
+    res.status(500).send({
       status: "false",
       msg: "internal server error",
     });
