@@ -1,0 +1,150 @@
+/* * * * * * * * * *  
+*  Housy Font
+ * * * * * * * * * */
+@import url(//fonts.googleapis.com/css?family=Avenir);
+
+.housyFont {
+  font-family: Avenir;
+  font-weight: bold;
+}
+
+/* Custom Button */
+.btn-primary {
+  border: none !important;
+  background: #5a57ab !important;
+}
+
+.btnModalCustom {
+  background: rgba(196, 196, 196, 0.25);
+}
+
+.navBtnCustom {
+  margin: 10px 20px;
+}
+
+/* Custom Navigation */
+.navImgCustom {
+  margin: 10px 40px;
+}
+.navSearchCustom {
+  position: relative;
+  width: 20rem;
+  border-right: 20px solid black;
+  background: rgba(196, 196, 196, 0.25);
+  padding: 10px 20px;
+  border: none;
+}
+.navSearchCustom:focus {
+  outline: none !important;
+  background: rgba(196, 196, 196, 0.486);
+  box-shadow: none;
+}
+.navButtonSearchCustom {
+  margin: 0px -10px;
+  background: rgba(196, 196, 196, 0.25);
+  color: black;
+  border: none !important;
+}
+
+.buttonSearch:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Custom Sidebar */
+.rowSidebar {
+  width: 100%;
+}
+.buttonRadioCustom > label {
+  background: rgba(196, 196, 196, 0.25) !important;
+  color: black;
+  padding: 0.5rem 2rem;
+  margin: 0px 9.5px 0px;
+  text-align: center;
+  border-radius: 5px;
+}
+.buttonRadioCustom input[type="radio"] {
+  display: none;
+  z-index: 100;
+}
+.buttonRadioCustom input[type="radio"]:checked + label {
+  background: #5a57ab !important;
+  color: white;
+}
+.buttonRadioCustomProperty > label {
+  background: rgba(196, 196, 196, 0.25) !important;
+  color: black;
+  padding: 8px 20px;
+  margin: 1px 12px 10px;
+  text-align: center;
+  border-radius: 5px;
+}
+.buttonRadioCustomProperty input[type="radio"] {
+  display: none;
+  z-index: 100;
+}
+.buttonRadioCustomProperty input[type="radio"]:checked + label {
+  background: #5a57ab !important;
+  color: white;
+}
+.btnApply {
+  width: 35%;
+  margin-top: 15px;
+  padding: 6px;
+}
+
+/* Custom Home Content */
+.bgHomeContent {
+  background-color: rgba(196, 196, 196, 0.25);
+  padding: 25px;
+  border-radius: 10px;
+}
+.cardCustom {
+  width: auto;
+  height: 21.8rem;
+  background-color: transparent;
+  border: 3px solid #e6e6e6;
+  border-radius: 0.5rem;
+  margin-bottom: 3rem;
+}
+.cardImgCustom {
+  padding: 7px;
+}
+
+.cardBadgeCustom {
+  position: absolute;
+  background: rgb(255, 255, 255);
+  height: 1.5rem;
+  margin-left: 20px;
+  top: 1rem;
+  text-align: center;
+  line-height: 1.1rem;
+  font-size: 0.8rem;
+  border-radius: 6px;
+  color: rgb(0, 0, 0);
+}
+
+/* Custom Sign Card */
+.signinCustom {
+  width: 80%;
+  margin-left: 3rem;
+  box-shadow: black;
+}
+.signupCustom {
+  width: 80%;
+  margin-left: 3rem;
+  box-shadow: black;
+}
+
+/* Custom Profile */
+.cardProfile {
+  width: 80%;
+  margin-left: 8rem;
+}
+.imgCustomProfile {
+  width: 80%;
+}
+.profileBtnCustom {
+  width: 22rem;
+  margin-top: 10px;
+}
